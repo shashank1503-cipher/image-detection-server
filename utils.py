@@ -1,4 +1,5 @@
 from ultralytics import YOLO
+import easyocr
 from urllib.parse import urlparse
 import os
 import requests
@@ -16,6 +17,19 @@ def get_objects_in_image(file_name):
             "Object type": class_id,
             "Probability": conf
         })
+    return result
+
+def get_text_from_images(url):
+    reader = easyocr.Reader(['en','hi'], gpu = False)
+    textValues = reader.readtext(url)
+    result = []
+    
+    for text in textValues:
+        result.append({
+            'text': text[1],
+            'probability': text[2]
+        })
+        
     return result
 
 def download_data_from_FTP(url):
