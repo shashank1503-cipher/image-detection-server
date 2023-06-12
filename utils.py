@@ -19,9 +19,9 @@ def get_objects_in_image(file_name):
         })
     return result
 
-def get_text_from_images(url):
+def get_text_from_images(file_name):
     reader = easyocr.Reader(['en','hi'], gpu = False)
-    textValues = reader.readtext(url)
+    textValues = reader.readtext(file_name)
     result = []
     
     for text in textValues:
