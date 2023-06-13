@@ -3,10 +3,12 @@ import easyocr
 from urllib.parse import urlparse
 import os
 import requests
+import torch
 
 def get_objects_in_image(file_name):
+    torch.cuda.empty_cache()
     model = YOLO('yolov8n.pt')
-    predictions = model.predict(file_name,device='cpu')
+    predictions = model.predict(file_name)
     prediction = predictions[0]
     result = []
     for box in prediction.boxes:
